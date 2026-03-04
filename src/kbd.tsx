@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { getAriaLabel } from "./format.js";
 import type { KbdProps, KbdVariant } from "./types.js";
 
@@ -9,7 +10,7 @@ const variantClasses: Record<KbdVariant, string> = {
 };
 
 /** Single keyboard key display */
-export function Kbd({ children, variant = "elevated", className }: KbdProps) {
+export const Kbd = memo(function Kbd({ children, variant = "elevated", className }: KbdProps) {
 	const ariaLabel = getAriaLabel(children);
 	const classes = [variantClasses[variant], className].filter(Boolean).join(" ");
 
@@ -18,4 +19,4 @@ export function Kbd({ children, variant = "elevated", className }: KbdProps) {
 			{children}
 		</kbd>
 	);
-}
+});
