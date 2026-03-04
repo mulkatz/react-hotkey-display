@@ -1,0 +1,78 @@
+/* hotkey-display — Default Styles */
+
+.hkd-hotkey {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.hkd-separator {
+	color: var(--hkd-separator-color, #737373);
+	font-size: 0.75em;
+	margin: 0 1px;
+	user-select: none;
+}
+
+.hkd-kbd {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--hkd-font, ui-sans-serif, system-ui, -apple-system, sans-serif);
+	font-size: var(--hkd-font-size, 0.75rem);
+	font-weight: var(--hkd-font-weight, 500);
+	line-height: 1;
+	min-width: var(--hkd-min-width, 1.5em);
+	height: var(--hkd-height, 1.6em);
+	padding: var(--hkd-padding, 0 0.4em);
+	border-radius: var(--hkd-radius, 4px);
+	white-space: nowrap;
+	user-select: none;
+	pointer-events: none;
+}
+
+/* Elevated — macOS-style with shadow depth */
+.hkd-elevated {
+	color: var(--hkd-color, #1a1a1a);
+	background: var(--hkd-bg, linear-gradient(180deg, #fafafa 0%, #e5e5e5 100%));
+	border: 1px solid var(--hkd-border, #d4d4d4);
+	box-shadow: 0 1px 0 0 var(--hkd-shadow-outer, #a3a3a3), inset 0 1px 0 0
+		var(--hkd-shadow-inner, #ffffff);
+}
+
+/* Subtle — GitHub-style, minimal */
+.hkd-subtle {
+	color: var(--hkd-color, #737373);
+	background: var(--hkd-bg, #f5f5f5);
+	border: 1px solid var(--hkd-border, #e5e5e5);
+}
+
+/* Flat — no border, no shadow */
+.hkd-flat {
+	color: var(--hkd-color, #a3a3a3);
+	background: var(--hkd-bg, #262626);
+	border: none;
+}
+
+/* Outlined — border only */
+.hkd-outlined {
+	color: var(--hkd-color, #a3a3a3);
+	background: transparent;
+	border: 1px solid var(--hkd-border, #404040);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+	.hkd-elevated {
+		--hkd-color: #e5e5e5;
+		--hkd-bg: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+		--hkd-border: #525252;
+		--hkd-shadow-outer: #171717;
+		--hkd-shadow-inner: #4a4a4a;
+	}
+
+	.hkd-subtle {
+		--hkd-color: #a3a3a3;
+		--hkd-bg: #262626;
+		--hkd-border: #404040;
+	}
+}
