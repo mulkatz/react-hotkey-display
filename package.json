@@ -7,11 +7,11 @@
 	"author": "Franz Schlögel",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/franzs/react-hotkey-display"
+		"url": "https://github.com/mulkatz/react-hotkey-display"
 	},
-	"homepage": "https://github.com/franzs/react-hotkey-display#readme",
+	"homepage": "https://github.com/mulkatz/react-hotkey-display#readme",
 	"bugs": {
-		"url": "https://github.com/franzs/react-hotkey-display/issues"
+		"url": "https://github.com/mulkatz/react-hotkey-display/issues"
 	},
 	"keywords": [
 		"keyboard",
