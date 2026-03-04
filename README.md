@@ -104,7 +104,7 @@ Use `Mod` as a platform-agnostic modifier:
 Customize via CSS Custom Properties:
 
 ```css
-.hkd-kbd {
+:root {
   --hkd-font: 'Inter', sans-serif;
   --hkd-font-size: 0.75rem;
   --hkd-radius: 6px;
@@ -114,7 +114,9 @@ Customize via CSS Custom Properties:
 }
 ```
 
-Dark mode is supported automatically via `prefers-color-scheme`.
+All CSS classes use the `hkd-` prefix (e.g. `hkd-kbd`, `hkd-hotkey`, `hkd-elevated`).
+
+Dark mode is supported automatically via `prefers-color-scheme` for all four variants.
 
 ## Utility Functions
 
@@ -129,7 +131,7 @@ const keys = formatCombo('Mod+Shift+K', platform); // ['⇧', '⌘', 'K'] on Mac
 
 ## SSR / Next.js
 
-The `usePlatform` hook uses `useSyncExternalStore` for hydration-safe platform detection:
+The `usePlatform` hook uses `useSyncExternalStore` for hydration-safe platform detection. On the server, it always renders as `"windows"` (the most common platform). After hydration on the client, it updates to the detected platform. This means Mac users may see a brief flash from `Ctrl` to `⌘` on first load.
 
 ```tsx
 import { usePlatform } from 'react-kbd';
@@ -140,7 +142,7 @@ function MyComponent() {
 }
 ```
 
-Or pass `platform` directly to skip detection entirely:
+Or pass `platform` directly to skip detection entirely (useful when you know the platform server-side):
 
 ```tsx
 <Hotkey combo="Mod+S" platform="mac" />
