@@ -1,6 +1,6 @@
 {
 	"name": "react-hotkey-display",
-	"version": "0.0.1",
+	"version": "0.8.0",
 	"description": "Beautiful keyboard shortcut display with automatic OS detection. Shows Command on Mac, Ctrl on Windows/Linux.",
 	"type": "module",
 	"license": "MIT",
