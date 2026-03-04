@@ -23,6 +23,28 @@ const MAC_SYMBOLS: Record<string, string> = {
 	left: "\u2190", // ←
 	right: "\u2192", // →
 	capslock: "\u21EA", // ⇪
+	plus: "+",
+	pageup: "Page Up",
+	pagedown: "Page Down",
+	home: "Home",
+	end: "End",
+	insert: "Insert",
+	printscreen: "Print Screen",
+	scrolllock: "Scroll Lock",
+	pause: "Pause",
+	numlock: "Num Lock",
+	f1: "F1",
+	f2: "F2",
+	f3: "F3",
+	f4: "F4",
+	f5: "F5",
+	f6: "F6",
+	f7: "F7",
+	f8: "F8",
+	f9: "F9",
+	f10: "F10",
+	f11: "F11",
+	f12: "F12",
 };
 
 /** Windows/Linux modifier labels */
@@ -48,6 +70,28 @@ const STANDARD_LABELS: Record<string, string> = {
 	left: "\u2190",
 	right: "\u2192",
 	capslock: "Caps Lock",
+	plus: "+",
+	pageup: "Page Up",
+	pagedown: "Page Down",
+	home: "Home",
+	end: "End",
+	insert: "Insert",
+	printscreen: "Print Screen",
+	scrolllock: "Scroll Lock",
+	pause: "Pause",
+	numlock: "Num Lock",
+	f1: "F1",
+	f2: "F2",
+	f3: "F3",
+	f4: "F4",
+	f5: "F5",
+	f6: "F6",
+	f7: "F7",
+	f8: "F8",
+	f9: "F9",
+	f10: "F10",
+	f11: "F11",
+	f12: "F12",
 };
 
 /** Screen reader labels for special keys */
@@ -67,6 +111,7 @@ export const ARIA_LABELS: Record<string, string> = {
 	"\u2190": "Left",
 	"\u2192": "Right",
 	"\u21EA": "Caps Lock",
+	"+": "Plus",
 };
 
 /** Format a single key for a given platform */
@@ -80,12 +125,39 @@ export function formatKey(key: string, platform: Platform): string {
 	return STANDARD_LABELS[normalized] ?? key.toUpperCase();
 }
 
-/** Parse a combo string like "Mod+Shift+K" into individual keys */
+/**
+ * Parse a combo string like "Mod+Shift+K" into individual keys.
+ *
+ * Handles edge cases:
+ * - "Mod+Plus" → ["Mod", "Plus"] (the "Plus" key name)
+ * - "Ctrl++" → ["Ctrl", "+"] (trailing "+" is a literal plus key)
+ * - "Mod+Shift++" → ["Mod", "Shift", "+"]
+ */
 export function parseCombo(combo: string): string[] {
-	return combo
+	const keys: string[] = [];
+	const trimmed = combo.trim();
+
+	// Handle trailing "+" as a literal plus key: "Ctrl++", "Mod+Shift++"
+	let remaining = trimmed;
+	let hasTrailingPlus = false;
+
+	if (remaining.endsWith("++")) {
+		hasTrailingPlus = true;
+		remaining = remaining.slice(0, -2);
+	}
+
+	const parts = remaining
 		.split("+")
 		.map((k) => k.trim())
 		.filter(Boolean);
+
+	keys.push(...parts);
+
+	if (hasTrailingPlus) {
+		keys.push("+");
+	}
+
+	return keys;
 }
 
 /** Format a full combo for display */
