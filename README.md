@@ -1,4 +1,4 @@
-# react-kbd
+# react-hotkey-display
 
 Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on Mac, `Ctrl` on Windows/Linux.
 
@@ -17,14 +17,14 @@ Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on 
 ## Install
 
 ```bash
-npm install react-kbd
+npm install react-hotkey-display
 ```
 
 ## Quick Start
 
 ```tsx
-import { Hotkey } from 'react-kbd';
-import 'react-kbd/styles.css';
+import { Hotkey } from 'react-hotkey-display';
+import 'react-hotkey-display/styles.css';
 
 function App() {
   return (
@@ -123,7 +123,7 @@ Dark mode is supported automatically via `prefers-color-scheme` for all four var
 For headless usage without React components:
 
 ```ts
-import { formatCombo, detectPlatform } from 'react-kbd';
+import { formatCombo, detectPlatform } from 'react-hotkey-display';
 
 const platform = detectPlatform(); // 'mac' | 'windows' | 'linux'
 const keys = formatCombo('Mod+Shift+K', platform); // ['⇧', '⌘', 'K'] on Mac
@@ -134,7 +134,7 @@ const keys = formatCombo('Mod+Shift+K', platform); // ['⇧', '⌘', 'K'] on Mac
 The `usePlatform` hook uses `useSyncExternalStore` for hydration-safe platform detection. On the server, it always renders as `"windows"` (the most common platform). After hydration on the client, it updates to the detected platform. This means Mac users may see a brief flash from `Ctrl` to `⌘` on first load.
 
 ```tsx
-import { usePlatform } from 'react-kbd';
+import { usePlatform } from 'react-hotkey-display';
 
 function MyComponent() {
   const platform = usePlatform(); // SSR-safe, no hydration mismatch
