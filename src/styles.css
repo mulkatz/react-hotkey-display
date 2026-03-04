@@ -75,4 +75,14 @@
 		--hkd-bg: #262626;
 		--hkd-border: #404040;
 	}
+
+	.hkd-flat {
+		--hkd-color: #d4d4d4;
+		--hkd-bg: #1a1a1a;
+	}
+
+	.hkd-outlined {
+		--hkd-color: #d4d4d4;
+		--hkd-border: #525252;
+	}
 }
