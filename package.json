@@ -9,6 +9,10 @@
 		"type": "git",
 		"url": "https://github.com/franzs/react-hotkey-display"
 	},
+	"homepage": "https://github.com/franzs/react-hotkey-display#readme",
+	"bugs": {
+		"url": "https://github.com/franzs/react-hotkey-display/issues"
+	},
 	"keywords": [
 		"keyboard",
 		"shortcut",
@@ -23,14 +27,24 @@
 	],
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		},
 		"./styles.css": "./dist/styles.css"
 	},
 	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"sideEffects": ["*.css"],
+	"engines": {
+		"node": ">=18"
+	},
 	"files": ["dist"],
 	"scripts": {
 		"build": "tsup && cp src/styles.css dist/styles.css",
