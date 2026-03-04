@@ -1,17 +1,18 @@
-import { detectPlatform } from "./detect-os.js";
+import { memo } from "react";
 import { formatCombo, getComboAriaLabel } from "./format.js";
 import { Kbd } from "./kbd.js";
 import type { HotkeyProps } from "./types.js";
+import { usePlatform } from "./use-platform.js";
 
 /** Display a keyboard shortcut combo with automatic OS detection */
-export function Hotkey({
+export const Hotkey = memo(function Hotkey({
 	combo,
 	platform,
 	variant = "elevated",
 	separator,
 	className,
 }: HotkeyProps) {
-	const resolvedPlatform = platform ?? detectPlatform();
+	const resolvedPlatform = usePlatform(platform);
 	const keys = formatCombo(combo, resolvedPlatform);
 	const ariaLabel = getComboAriaLabel(keys);
 
@@ -21,7 +22,11 @@ export function Hotkey({
 	const sep = separator ?? defaultSep;
 
 	return (
-		<span className={["hkd-hotkey", className].filter(Boolean).join(" ")} aria-label={ariaLabel}>
+		<span
+			className={["hkd-hotkey", className].filter(Boolean).join(" ")}
+			aria-label={ariaLabel}
+			role="group"
+		>
 			{keys.map((key, i) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: keys are static per render, index is stable
 				<span key={`${key}-${i}`}>
@@ -35,4 +40,4 @@ export function Hotkey({
 			))}
 		</span>
 	);
-}
+});
