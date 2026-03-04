@@ -29,12 +29,8 @@ export const Hotkey = memo(function Hotkey({
 		>
 			{keys.map((key, i) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: keys are static per render, index is stable
-				<span key={`${key}-${i}`}>
-					{i > 0 && sep && (
-						<span className="hkd-separator" aria-hidden="true">
-							{sep}
-						</span>
-					)}
+				<span key={`${key}-${i}`} aria-hidden="true">
+					{i > 0 && sep && <span className="hkd-separator">{sep}</span>}
 					<Kbd variant={variant}>{key}</Kbd>
 				</span>
 			))}
