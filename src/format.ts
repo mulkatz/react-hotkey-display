@@ -137,6 +137,9 @@ export function parseCombo(combo: string): string[] {
 	const keys: string[] = [];
 	const trimmed = combo.trim();
 
+	if (trimmed === "") return [];
+	if (trimmed === "+") return ["+"];
+
 	// Handle trailing "+" as a literal plus key: "Ctrl++", "Mod+Shift++"
 	let remaining = trimmed;
 	let hasTrailingPlus = false;
