@@ -2,8 +2,6 @@
 
 Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on Mac, `Ctrl` on Windows/Linux.
 
-<!-- TODO: Add screenshot/GIF here -->
-
 ## Features
 
 - **Automatic OS detection** — `Mod+S` renders as `⌘S` on Mac, `Ctrl + S` on Windows
@@ -11,7 +9,7 @@ Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on 
 - **4 visual themes** — elevated (macOS-style), subtle (GitHub-style), flat, outlined
 - **Accessible** — semantic `<kbd>` elements, ARIA labels, screen reader friendly
 - **SSR-safe** — works with Next.js via `useSyncExternalStore`, accepts `platform` prop override
-- **Tiny** — ~1KB JS + ~0.8KB CSS gzipped
+- **Tiny** — ~1.5KB JS + ~0.8KB CSS gzipped
 - **CSS Custom Properties** — full theming control
 
 ## Install
@@ -123,11 +121,34 @@ Dark mode is supported automatically via `prefers-color-scheme` for all four var
 For headless usage without React components:
 
 ```ts
-import { formatCombo, detectPlatform } from 'react-hotkey-display';
+import { formatCombo, formatKey, parseCombo, detectPlatform } from 'react-hotkey-display';
 
 const platform = detectPlatform(); // 'mac' | 'windows' | 'linux'
 const keys = formatCombo('Mod+Shift+K', platform); // ['⇧', '⌘', 'K'] on Mac
 ```
+
+### Formatting
+
+| Function | Description |
+|----------|-------------|
+| `formatCombo(combo, platform)` | Format a full combo string into display keys |
+| `formatKey(key, platform)` | Format a single key for a given platform |
+| `parseCombo(combo)` | Parse a combo string like `"Mod+Shift+K"` into `["Mod", "Shift", "K"]` |
+
+### Accessibility
+
+| Function | Description |
+|----------|-------------|
+| `getAriaLabel(key)` | Get screen reader label for a formatted key symbol (e.g. `"⌘"` -> `"Command"`) |
+| `getComboAriaLabel(keys)` | Get full screen reader label for formatted keys (e.g. `["⇧", "⌘", "K"]` -> `"Shift plus Command plus K"`) |
+
+### Platform Detection
+
+| Function | Description |
+|----------|-------------|
+| `detectPlatform()` | Detect the user's OS. Returns `'mac'`, `'windows'`, or `'linux'` |
+| `usePlatform(override?)` | React hook for SSR-safe platform detection via `useSyncExternalStore` |
+| `resetPlatformCache()` | Reset the cached platform detection result (useful for testing) |
 
 ## SSR / Next.js
 
