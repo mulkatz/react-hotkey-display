@@ -1,5 +1,5 @@
 {
-	"name": "hotkey-display",
+	"name": "react-kbd",
 	"version": "0.0.1",
 	"description": "Beautiful keyboard shortcut display with automatic OS detection. Shows Command on Mac, Ctrl on Windows/Linux.",
 	"type": "module",
@@ -7,7 +7,7 @@
 	"author": "Franz Schlögel",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/franzs/hotkey-display"
+		"url": "https://github.com/franzs/react-kbd"
 	},
 	"keywords": [
 		"keyboard",

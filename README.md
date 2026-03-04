@@ -1,4 +1,4 @@
-# hotkey-display
+# react-kbd
 
 Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on Mac, `Ctrl` on Windows/Linux.
 
@@ -10,21 +10,21 @@ Beautiful keyboard shortcut display with automatic OS detection. Shows `⌘` on 
 - **Mac symbols** — `⌘` `⇧` `⌥` `⌃` `⏎` `⌫` `⇥` `⎋` and more
 - **4 visual themes** — elevated (macOS-style), subtle (GitHub-style), flat, outlined
 - **Accessible** — semantic `<kbd>` elements, ARIA labels, screen reader friendly
-- **SSR-safe** — works with Next.js, accepts `platform` prop for server rendering
+- **SSR-safe** — works with Next.js via `useSyncExternalStore`, accepts `platform` prop override
 - **Tiny** — ~1KB JS + ~0.8KB CSS gzipped
 - **CSS Custom Properties** — full theming control
 
 ## Install
 
 ```bash
-npm install hotkey-display
+npm install react-kbd
 ```
 
 ## Quick Start
 
 ```tsx
-import { Hotkey } from 'hotkey-display';
-import 'hotkey-display/styles.css';
+import { Hotkey } from 'react-kbd';
+import 'react-kbd/styles.css';
 
 function App() {
   return (
@@ -91,6 +91,13 @@ Use `Mod` as a platform-agnostic modifier:
 | `Escape` | ⎋ | Esc |
 | `Space` | ␣ | Space |
 | `Up/Down/Left/Right` | ↑↓←→ | ↑↓←→ |
+| `PageUp` | Page Up | Page Up |
+| `PageDown` | Page Down | Page Down |
+| `Home` | Home | Home |
+| `End` | End | End |
+| `F1`–`F12` | F1–F12 | F1–F12 |
+| `Plus` | + | + |
+| `CapsLock` | ⇪ | Caps Lock |
 
 ## Theming
 
@@ -114,10 +121,29 @@ Dark mode is supported automatically via `prefers-color-scheme`.
 For headless usage without React components:
 
 ```ts
-import { formatCombo, detectPlatform } from 'hotkey-display';
+import { formatCombo, detectPlatform } from 'react-kbd';
 
 const platform = detectPlatform(); // 'mac' | 'windows' | 'linux'
 const keys = formatCombo('Mod+Shift+K', platform); // ['⇧', '⌘', 'K'] on Mac
+```
+
+## SSR / Next.js
+
+The `usePlatform` hook uses `useSyncExternalStore` for hydration-safe platform detection:
+
+```tsx
+import { usePlatform } from 'react-kbd';
+
+function MyComponent() {
+  const platform = usePlatform(); // SSR-safe, no hydration mismatch
+  return <p>You're on {platform}</p>;
+}
+```
+
+Or pass `platform` directly to skip detection entirely:
+
+```tsx
+<Hotkey combo="Mod+S" platform="mac" />
 ```
 
 ## Browser Support
