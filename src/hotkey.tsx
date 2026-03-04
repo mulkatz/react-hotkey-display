@@ -14,6 +14,9 @@ export const Hotkey = memo(function Hotkey({
 }: HotkeyProps) {
 	const resolvedPlatform = usePlatform(platform);
 	const keys = formatCombo(combo, resolvedPlatform);
+
+	if (keys.length === 0) return null;
+
 	const ariaLabel = getComboAriaLabel(keys);
 
 	// On Mac, modifiers are shown as symbols without separator
