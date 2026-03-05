@@ -1,6 +1,23 @@
-# react-hotkey-display
+<p align="center">
+  <img src="./icon.png" width="120" alt="react-hotkey-display icon" />
+</p>
 
-The visual display layer for the React hotkey ecosystem. Beautiful keyboard shortcut rendering with OS detection, cheatsheet overlay, and command palette.
+<h1 align="center">react-hotkey-display</h1>
+<p align="center">The visual display layer for the React hotkey ecosystem.</p>
+
+<p align="center">
+  <img src="./assets/demo.gif" alt="demo" width="700" />
+</p>
+
+<p align="center">
+  <a href="https://npmjs.com/package/react-hotkey-display"><img src="https://img.shields.io/npm/v/react-hotkey-display" /></a>
+  <a href="https://bundlephobia.com/package/react-hotkey-display"><img src="https://img.shields.io/bundlephobia/minzip/react-hotkey-display" /></a>
+  <img src="https://img.shields.io/npm/l/react-hotkey-display" />
+</p>
+
+<p align="center">
+  <a href="https://react-hotkey-display.mulkatz.dev"><strong>Live Demo</strong></a> · <a href="#install">Install</a> · <a href="#components">Components</a>
+</p>
 
 ## Features
 
