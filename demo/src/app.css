@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import "react-hotkey-display/styles.css";
+@import "react-hotkey-display/cheatsheet.css";
+@import "react-hotkey-display/palette.css";
+
+/* Force dark mode for library components */
+.hkd-elevated {
+	--hkd-color: #e5e5e5;
+	--hkd-bg: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+	--hkd-border: #525252;
+	--hkd-shadow-outer: #171717;
+	--hkd-shadow-inner: #4a4a4a;
+}
+
+.hkd-subtle {
+	--hkd-color: #a3a3a3;
+	--hkd-bg: #262626;
+	--hkd-border: #404040;
+}
+
+.hkd-flat {
+	--hkd-color: #d4d4d4;
+	--hkd-bg: #1a1a1a;
+}
+
+.hkd-outlined {
+	--hkd-color: #d4d4d4;
+	--hkd-border: #525252;
+}
+
+.hkd-hint-action {
+	--hkd-hint-action-color: #d1d5db;
+}
+
+.hkd-separator,
+.hkd-sequence-arrow {
+	--hkd-separator-color: #a3a3a3;
+}
