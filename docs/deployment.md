@@ -12,7 +12,7 @@
 |---------|-------|
 | Repository | `mulkatz/react-hotkey-display` |
 | Production branch | `main` |
-| Build command | `cd demo && npm install && npm run build` |
+| Build command | `npm install && npm run build && cd demo && npm install && npm run build` |
 | Output directory | `demo/dist` |
 | Custom domain | `react-hotkey-display.mulkatz.dev` |
 
@@ -33,6 +33,6 @@ Cloudflare Pages provides a default URL (`react-hotkey-display.pages.dev`) that 
 Each tool follows the same pattern:
 
 - Repository: `mulkatz/[tool-name]`
-- Build command: `cd demo && npm install && npm run build`
+- Build command: `npm install && npm run build && cd demo && npm install && npm run build`
 - Output directory: `demo/dist`
 - Custom domain: `[tool-name].mulkatz.dev`
