@@ -15,10 +15,6 @@ interface HeroProps {
 export function Hero({ platform, onPlatformChange }: HeroProps) {
 	return (
 		<section className="py-24 text-center">
-			<p className="mb-6 text-sm font-medium tracking-widest text-zinc-500 uppercase">
-				React Component Library
-			</p>
-
 			<h1 className="text-5xl font-bold tracking-tight text-zinc-50 mb-4">react-hotkey-display</h1>
 
 			<p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-12">
@@ -49,7 +45,7 @@ export function Hero({ platform, onPlatformChange }: HeroProps) {
 				{["elevated", "subtle", "flat", "outlined"].map((variant) => (
 					<div key={variant} className="text-center">
 						<Hotkey
-							combo="Mod+Shift+K"
+							combo="Mod+K"
 							platform={platform}
 							variant={variant as "elevated" | "subtle" | "flat" | "outlined"}
 							size="lg"
