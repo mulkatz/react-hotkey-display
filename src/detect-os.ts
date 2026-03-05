@@ -1,5 +1,10 @@
 import type { Platform } from "./types.js";
 
+/** Navigator User-Agent Client Hints API (not yet in all TS lib types) */
+interface NavigatorUAData {
+	platform: string;
+}
+
 let cachedPlatform: Platform | null = null;
 
 /** Reset the cached platform (useful for testing) */
@@ -17,8 +22,8 @@ export function detectPlatform(): Platform {
 	}
 
 	const ua = navigator.userAgent.toLowerCase();
-	// @ts-expect-error — navigator.userAgentData is not yet in all TS lib types
-	const platform = (navigator.userAgentData?.platform ?? navigator.platform ?? "").toLowerCase();
+	const uaData = navigator as Navigator & { userAgentData?: NavigatorUAData };
+	const platform = (uaData.userAgentData?.platform ?? navigator.platform ?? "").toLowerCase();
 
 	if (platform.includes("mac") || ua.includes("macintosh")) {
 		cachedPlatform = "mac";
