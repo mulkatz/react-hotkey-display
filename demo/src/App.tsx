@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { detectPlatform } from "react-hotkey-display";
 import type { Platform } from "react-hotkey-display";
-import { Cheatsheet } from "./sections/Cheatsheet";
 import { Hero } from "./sections/Hero";
 import { Integration } from "./sections/Integration";
-import { Palette } from "./sections/Palette";
+import { Overlays } from "./sections/Overlays";
+import { Theming } from "./sections/Theming";
 import { Variants } from "./sections/Variants";
 
 export function App() {
@@ -19,10 +19,10 @@ export function App() {
 				<Variants platform={platform} />
 
 				<hr className="border-zinc-800" />
-				<Cheatsheet platform={platform} />
+				<Theming platform={platform} />
 
 				<hr className="border-zinc-800" />
-				<Palette platform={platform} />
+				<Overlays platform={platform} />
 
 				<hr className="border-zinc-800" />
 				<Integration />
