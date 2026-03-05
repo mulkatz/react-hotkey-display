@@ -1,6 +1,6 @@
 {
 	"name": "react-hotkey-display",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Keyboard shortcut UI components with automatic OS detection: Kbd, Hotkey, Cheatsheet, and Command Palette. Mac/Windows/Linux aware.",
 	"type": "module",
 	"license": "MIT",
@@ -53,7 +53,7 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["dist"],
+	"files": ["dist", "!dist/*.map"],
 	"scripts": {
 		"build": "tsup && cp src/styles.css src/cheatsheet.css src/palette.css dist/",
 		"dev": "tsup --watch",
