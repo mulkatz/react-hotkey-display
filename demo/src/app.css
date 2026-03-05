@@ -36,3 +36,51 @@
 .hkd-sequence-arrow {
 	--hkd-separator-color: #a3a3a3;
 }
+
+/* Force dark theme for cheatsheet overlay */
+.hkd-cheatsheet {
+	--hkd-cs-bg: #1a1a1a;
+	--hkd-cs-color: #e5e5e5;
+	--hkd-cs-border: #333;
+	--hkd-cs-divider: #333;
+	--hkd-cs-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.hkd-cheatsheet-close {
+	--hkd-cs-close-color: #a3a3a3;
+	--hkd-cs-close-hover-bg: #262626;
+	--hkd-cs-close-hover-color: #e5e5e5;
+}
+
+.hkd-cheatsheet-input {
+	--hkd-cs-input-border: #404040;
+	--hkd-cs-input-bg: #262626;
+}
+
+.hkd-cheatsheet-category,
+.hkd-cheatsheet-empty {
+	--hkd-cs-muted: #a3a3a3;
+}
+
+/* Force dark theme for palette overlay */
+.hkd-palette {
+	--hkd-pl-bg: #1a1a1a;
+	--hkd-pl-color: #e5e5e5;
+	--hkd-pl-border: #333;
+	--hkd-pl-divider: #333;
+	--hkd-pl-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.hkd-palette-input {
+	--hkd-pl-placeholder: #737373;
+}
+
+.hkd-palette-item:hover,
+.hkd-palette-active {
+	--hkd-pl-active-bg: #262626;
+}
+
+.hkd-palette-empty,
+.hkd-palette-item-cat {
+	--hkd-pl-muted: #a3a3a3;
+}
