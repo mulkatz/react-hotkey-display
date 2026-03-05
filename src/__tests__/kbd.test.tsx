@@ -60,4 +60,39 @@ describe("Kbd", () => {
 		const kbd = screen.getByText("K");
 		expect(kbd.getAttribute("aria-label")).toBeNull();
 	});
+
+	it("applies small size class", () => {
+		render(<Kbd size="sm">K</Kbd>);
+		const kbd = screen.getByText("K");
+		expect(kbd.className).toContain("hkd-sm");
+	});
+
+	it("applies large size class", () => {
+		render(<Kbd size="lg">K</Kbd>);
+		const kbd = screen.getByText("K");
+		expect(kbd.className).toContain("hkd-lg");
+	});
+
+	it("does not add size class for md (default)", () => {
+		render(<Kbd>K</Kbd>);
+		const kbd = screen.getByText("K");
+		expect(kbd.className).not.toContain("hkd-sm");
+		expect(kbd.className).not.toContain("hkd-lg");
+	});
+
+	it("strips hkd-* classes when unstyled", () => {
+		render(<Kbd unstyled>K</Kbd>);
+		const kbd = screen.getByText("K");
+		expect(kbd.className || "").not.toContain("hkd-");
+	});
+
+	it("keeps custom className when unstyled", () => {
+		render(
+			<Kbd unstyled className="custom">
+				K
+			</Kbd>,
+		);
+		const kbd = screen.getByText("K");
+		expect(kbd.className).toBe("custom");
+	});
 });

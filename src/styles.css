@@ -13,6 +13,13 @@
 	user-select: none;
 }
 
+.hkd-sequence-arrow {
+	color: var(--hkd-separator-color, #737373);
+	font-size: 0.75em;
+	margin: 0 2px;
+	user-select: none;
+}
+
 .hkd-kbd {
 	display: inline-flex;
 	align-items: center;
@@ -28,6 +35,23 @@
 	white-space: nowrap;
 	user-select: none;
 	pointer-events: none;
+}
+
+/* Size variants */
+.hkd-sm {
+	font-size: var(--hkd-font-size-sm, 0.625rem);
+	min-width: var(--hkd-min-width-sm, 1.2em);
+	height: var(--hkd-height-sm, 1.3em);
+	padding: var(--hkd-padding-sm, 0 0.3em);
+	border-radius: var(--hkd-radius-sm, 3px);
+}
+
+.hkd-lg {
+	font-size: var(--hkd-font-size-lg, 0.875rem);
+	min-width: var(--hkd-min-width-lg, 1.8em);
+	height: var(--hkd-height-lg, 2em);
+	padding: var(--hkd-padding-lg, 0 0.5em);
+	border-radius: var(--hkd-radius-lg, 5px);
 }
 
 /* Elevated — macOS-style with shadow depth */
@@ -60,6 +84,18 @@
 	border: 1px solid var(--hkd-border, #404040);
 }
 
+/* ShortcutHint */
+.hkd-hint {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.hkd-hint-action {
+	color: var(--hkd-hint-action-color, #374151);
+	font-size: var(--hkd-hint-action-size, 0.875rem);
+}
+
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
 	.hkd-elevated {
@@ -84,5 +120,14 @@
 	.hkd-outlined {
 		--hkd-color: #d4d4d4;
 		--hkd-border: #525252;
+	}
+
+	.hkd-hint-action {
+		--hkd-hint-action-color: #d1d5db;
+	}
+
+	.hkd-separator,
+	.hkd-sequence-arrow {
+		--hkd-separator-color: #a3a3a3;
 	}
 }

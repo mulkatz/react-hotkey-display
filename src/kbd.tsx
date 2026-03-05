@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { getAriaLabel } from "./format.js";
-import type { KbdProps, KbdVariant } from "./types.js";
+import type { KbdProps, KbdSize, KbdVariant } from "./types.js";
 
 const variantClasses: Record<KbdVariant, string> = {
 	subtle: "hkd-kbd hkd-subtle",
@@ -9,10 +9,25 @@ const variantClasses: Record<KbdVariant, string> = {
 	outlined: "hkd-kbd hkd-outlined",
 };
 
+const sizeClasses: Record<KbdSize, string> = {
+	sm: "hkd-sm",
+	md: "",
+	lg: "hkd-lg",
+};
+
 /** Single keyboard key display */
-export const Kbd = memo(function Kbd({ children, variant = "elevated", className }: KbdProps) {
+export const Kbd = memo(function Kbd({
+	children,
+	variant = "elevated",
+	size = "md",
+	unstyled = false,
+	className,
+}: KbdProps) {
 	const ariaLabel = getAriaLabel(children);
-	const classes = [variantClasses[variant], className].filter(Boolean).join(" ");
+
+	const classes = unstyled
+		? className || undefined
+		: [variantClasses[variant], sizeClasses[size], className].filter(Boolean).join(" ");
 
 	return (
 		<kbd className={classes} aria-label={ariaLabel !== children ? ariaLabel : undefined}>
