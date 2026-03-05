@@ -53,44 +53,42 @@ async function record() {
 		// Wait for page to fully render
 		await wait(1500);
 
-		// Click Mac toggle
+		// Toggle Mac → Windows → Mac to show OS-awareness
 		console.log("Switching to Mac...");
 		await page.click('button:text("Mac")');
 		await wait(1200);
 
-		// Click Windows toggle
 		console.log("Switching to Windows...");
 		await page.click('button:text("Windows")');
 		await wait(1200);
 
-		// Click back to Mac
 		console.log("Switching back to Mac...");
 		await page.click('button:text("Mac")');
 		await wait(800);
 
-		// Scroll to cheatsheet section and open it
+		// Open Cheatsheet (now dark-themed)
 		console.log("Opening cheatsheet...");
 		await page.click('button:text("Open Cheatsheet")');
 		await wait(800);
 
-		// Type in search
+		// Search in cheatsheet
 		await page.fill('[placeholder="Search shortcuts..."]', "save");
 		await wait(1000);
 
-		// Close cheatsheet (press Escape)
+		// Close cheatsheet
 		await page.keyboard.press("Escape");
 		await wait(600);
 
-		// Scroll to palette section and open it
+		// Open Command Palette (now dark-themed)
 		console.log("Opening command palette...");
 		await page.click('button:text("Open Command Palette")');
 		await wait(800);
 
-		// Type in search
+		// Search in palette
 		await page.fill('[placeholder="Type a command..."]', "find");
 		await wait(600);
 
-		// Arrow down + Enter
+		// Navigate and select
 		await page.keyboard.press("ArrowDown");
 		await wait(400);
 		await page.keyboard.press("Enter");
