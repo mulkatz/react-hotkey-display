@@ -31,3 +31,10 @@ coverage/
 
 # npm
 *.tgz
+
+# Demo
+demo/node_modules/
+demo/dist/
+
+# Recording
+tmp-video/
