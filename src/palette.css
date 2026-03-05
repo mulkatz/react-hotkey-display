@@ -1,0 +1,127 @@
+/* react-hotkey-display — Palette Styles */
+
+.hkd-palette {
+	position: fixed;
+	inset: 0;
+	width: min(520px, 90vw);
+	max-height: min(420px, 70vh);
+	margin: 15vh auto auto;
+	padding: 0;
+	border: 1px solid var(--hkd-pl-border, #e5e5e5);
+	border-radius: var(--hkd-pl-radius, 12px);
+	background: var(--hkd-pl-bg, #ffffff);
+	color: var(--hkd-pl-color, #1a1a1a);
+	box-shadow: var(--hkd-pl-shadow, 0 16px 48px rgba(0, 0, 0, 0.2));
+	overflow: hidden;
+}
+
+.hkd-palette[open] {
+	display: flex;
+	flex-direction: column;
+}
+
+.hkd-palette::backdrop {
+	background: var(--hkd-pl-backdrop, rgba(0, 0, 0, 0.3));
+}
+
+.hkd-palette-content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+.hkd-palette-search {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--hkd-pl-divider, #e5e5e5);
+}
+
+.hkd-palette-input {
+	width: 100%;
+	padding: 8px 0;
+	border: none;
+	background: transparent;
+	color: inherit;
+	font-size: 1rem;
+	outline: none;
+	box-sizing: border-box;
+}
+
+.hkd-palette-input::placeholder {
+	color: var(--hkd-pl-placeholder, #a3a3a3);
+}
+
+.hkd-palette-list {
+	list-style: none;
+	padding: 4px 0;
+	margin: 0;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.hkd-palette-empty {
+	text-align: center;
+	color: var(--hkd-pl-muted, #737373);
+	font-size: 0.875rem;
+	padding: 24px 0;
+}
+
+.hkd-palette-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 16px;
+	gap: 12px;
+	cursor: pointer;
+}
+
+.hkd-palette-item:hover,
+.hkd-palette-active {
+	background: var(--hkd-pl-active-bg, #f5f5f5);
+}
+
+.hkd-palette-item-info {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	min-width: 0;
+}
+
+.hkd-palette-item-desc {
+	font-size: 0.875rem;
+	color: inherit;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.hkd-palette-item-cat {
+	font-size: 0.75rem;
+	color: var(--hkd-pl-muted, #737373);
+	white-space: nowrap;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+	.hkd-palette {
+		--hkd-pl-bg: #1a1a1a;
+		--hkd-pl-color: #e5e5e5;
+		--hkd-pl-border: #333;
+		--hkd-pl-divider: #333;
+		--hkd-pl-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+	}
+
+	.hkd-palette-input {
+		--hkd-pl-placeholder: #737373;
+	}
+
+	.hkd-palette-item:hover,
+	.hkd-palette-active {
+		--hkd-pl-active-bg: #262626;
+	}
+
+	.hkd-palette-empty,
+	.hkd-palette-item-cat {
+		--hkd-pl-muted: #a3a3a3;
+	}
+}
