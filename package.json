@@ -1,10 +1,10 @@
 {
 	"name": "react-hotkey-display",
-	"version": "0.8.0",
-	"description": "Beautiful keyboard shortcut display with automatic OS detection. Shows Command on Mac, Ctrl on Windows/Linux.",
+	"version": "1.0.0",
+	"description": "Keyboard shortcut UI components with automatic OS detection: Kbd, Hotkey, Cheatsheet, and Command Palette. Mac/Windows/Linux aware.",
 	"type": "module",
 	"license": "MIT",
-	"author": "Franz Schlögel",
+	"author": "Franz Benthin",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/mulkatz/react-hotkey-display"
@@ -14,19 +14,25 @@
 		"url": "https://github.com/mulkatz/react-hotkey-display/issues"
 	},
 	"keywords": [
+		"keyboard-shortcut",
 		"keyboard",
-		"shortcut",
 		"hotkey",
 		"kbd",
 		"keycap",
 		"os-detection",
+		"cheatsheet",
+		"command-palette",
 		"react",
-		"component",
+		"react-component",
+		"typescript",
+		"accessible",
+		"dark-mode",
 		"ui",
 		"display"
 	],
 	"exports": {
 		".": {
+			"types": "./dist/index.d.ts",
 			"import": {
 				"types": "./dist/index.d.ts",
 				"default": "./dist/index.js"
@@ -36,18 +42,20 @@
 				"default": "./dist/index.cjs"
 			}
 		},
-		"./styles.css": "./dist/styles.css"
+		"./styles.css": "./dist/styles.css",
+		"./cheatsheet.css": "./dist/cheatsheet.css",
+		"./palette.css": "./dist/palette.css"
 	},
-	"main": "./dist/index.js",
+	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"sideEffects": ["*.css"],
+	"sideEffects": ["./dist/*.css"],
 	"engines": {
 		"node": ">=18"
 	},
 	"files": ["dist"],
 	"scripts": {
-		"build": "tsup && cp src/styles.css dist/styles.css",
+		"build": "tsup && cp src/styles.css src/cheatsheet.css src/palette.css dist/",
 		"dev": "tsup --watch",
 		"check": "biome check .",
 		"check:fix": "biome check --write .",
