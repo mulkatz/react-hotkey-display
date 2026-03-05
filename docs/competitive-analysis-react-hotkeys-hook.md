@@ -1,6 +1,6 @@
 # Competitive Analysis: react-hotkeys-hook
 
-**Analysiert:** 2026-03-05
+**Analyzed:** 2026-03-05
 **Package:** https://github.com/JohannesKlauss/react-hotkeys-hook
 **npm:** https://www.npmjs.com/package/react-hotkeys-hook
 
@@ -20,34 +20,34 @@
 | Contributors | 56 |
 | npm Dependents | 699 |
 
-## Strategisches Signal: Maintainer Burnout
+## Strategic Signal: Maintainer Burnout
 
-**Issue #1213 "Looking for people to maintain this package"** (offen seit Sep 2024):
+**Issue #1213 "Looking for people to maintain this package"** (open since Sep 2024):
 > "With over 700k downloads a week and issues/bug reports coming in on a regular basis, it is way more work to maintain the repo than I ever anticipated."
 
-Das Projekt sucht aktiv Maintainer. Timing für eine Alternative ist ideal.
+The project is actively looking for maintainers. The timing for an alternative is ideal.
 
-## Architektur & Code
+## Architecture & Code
 
-### Was sie gut machen
-- Einfache, intuitive API: `useHotkeys('ctrl+k', callback)`
+### What they do well
+- Simple, intuitive API: `useHotkeys('ctrl+k', callback)`
 - Zero dependencies
-- Hook-based pattern passt zu modernem React
-- Scoping via `HotkeysProvider` mit `enableScope`/`disableScope`
+- Hook-based pattern fits modern React
+- Scoping via `HotkeysProvider` with `enableScope`/`disableScope`
 - Focus Trapping via Ref
-- Sequence Support (v5): `g>h>i` wie Vim/Gmail
-- `useRecordHotkeys` zum Aufnehmen von User-Tastenkombis
+- Sequence Support (v5): `g>h>i` like Vim/Gmail
+- `useRecordHotkeys` for recording user key combinations
 - 88+ Test Cases
 - Live interactive Docs (Docusaurus)
-- ~600-700 Zeilen Kernlogik — sehr lean
+- ~600-700 lines of core logic — very lean
 
-### Architektur-Probleme
+### Architecture Problems
 
 **1. Per-Hook Event Listener (N×2)**
-Jeder `useHotkeys()`-Call hängt eigene `keydown`/`keyup` Listener an. 20 Hotkeys = 40 Listener auf `document`. Keine Event-Delegation.
+Each `useHotkeys()` call attaches its own `keydown`/`keyup` listeners. 20 hotkeys = 40 listeners on `document`. No event delegation.
 
-**2. Globaler Side-Effect via IIFE**
-`isHotkeyPressed.ts` enthält eine IIFE die beim Import 4 globale Event-Listener anhängt:
+**2. Global Side-Effect via IIFE**
+`isHotkeyPressed.ts` contains an IIFE that attaches 4 global event listeners on import:
 ```typescript
 ;(() => {
   if (typeof document !== 'undefined') {
@@ -60,133 +60,133 @@ Jeder `useHotkeys()`-Call hängt eigene `keydown`/`keyup` Listener an. 20 Hotkey
   }
 })()
 ```
-- Nicht tree-shakeable
-- Läuft bei jedem Import
-- Keine Cleanup-Möglichkeit
-- `currentlyPressedKeys` ist globaler Module-State
+- Not tree-shakeable
+- Runs on every import
+- No cleanup mechanism
+- `currentlyPressedKeys` is global module state
 
-**3. Naive deepEqual Implementierung**
-- Kein null-Handling (typeof null === 'object')
-- Kein Array vs Object Handling
-- Kein short-circuit (reduce statt every)
+**3. Naive deepEqual Implementation**
+- No null handling (typeof null === 'object')
+- No Array vs Object handling
+- No short-circuit (reduce instead of every)
 
-**4. TypeScript Schwächen**
-- 4× `@ts-expect-error` im Core
-- Kein JSDoc auf keinem Export — IDE-Hover ist leer
-- `OptionsOrDependencyArray = Options | DependencyList` Union ist Code-Smell
-- `metadata: Record<string, unknown>` sehr loose
-- `Trigger` Type für `enabled` und `preventDefault` wiederverwendet (verschiedene Semantik)
+**4. TypeScript Weaknesses**
+- 4× `@ts-expect-error` in core
+- No JSDoc on any export — IDE hover is empty
+- `OptionsOrDependencyArray = Options | DependencyList` union is a code smell
+- `metadata: Record<string, unknown>` very loose
+- `Trigger` Type reused for `enabled` and `preventDefault` (different semantics)
 
-**5. Package.json Lücken**
-- Kein `exports` Feld (nutzt legacy `main`/`types`)
-- Kein `sideEffects` Feld
-- Kein `module` Feld
-- ESM-only seit v5 (CJS-User brauchen Bundler)
-- Keine Subpath-Imports
+**5. Package.json Gaps**
+- No `exports` field (uses legacy `main`/`types`)
+- No `sideEffects` field
+- No `module` field
+- ESM-only since v5 (CJS users need a bundler)
+- No subpath imports
 
 ### SSR Safety
-- `useSafeLayoutEffect` Pattern (useLayoutEffect vs useEffect)
-- Checks für `typeof document/window !== 'undefined'`
-- ABER: IIFE in `isHotkeyPressed.ts` läuft beim Import (Side-Effect)
+- `useSafeLayoutEffect` pattern (useLayoutEffect vs useEffect)
+- Checks for `typeof document/window !== 'undefined'`
+- BUT: IIFE in `isHotkeyPressed.ts` runs on import (side effect)
 
-## Bekannte Bugs (aus GitHub Issues)
+## Known Bugs (from GitHub Issues)
 
-### Kritisch
-| Issue | Problem | Kommentare |
-|-------|---------|------------|
-| #1231 | `enableOnFormTags: true` funktioniert nicht | 11 |
-| #1181 | `mod` auf macOS hört auf `ctrl` statt `meta` | 6 |
-| #1018 | meta+key keyup feuert nie (macOS Browser-Bug) | 8 |
-| #1115 | Modifier-Tasten während andere gehalten → falsche Callbacks | 6 |
-| #1058 | Scoped Hotkeys feuern außerhalb des Scope | 5 |
-| #1035 | Mehrere Handler für gleiche Taste: disabled einen → disabled alle | 2 |
-| #1038 | Provider verursacht komplette Re-Renders | 2 |
+### Critical
+| Issue | Problem | Comments |
+|-------|---------|----------|
+| #1231 | `enableOnFormTags: true` does not work | 11 |
+| #1181 | `mod` on macOS listens to `ctrl` instead of `meta` | 6 |
+| #1018 | meta+key keyup never fires (macOS browser bug) | 8 |
+| #1115 | Modifier keys while others are held → wrong callbacks | 6 |
+| #1058 | Scoped hotkeys fire outside of scope | 5 |
+| #1035 | Multiple handlers for same key: disabling one → disables all | 2 |
+| #1038 | Provider causes full re-renders | 2 |
 
-### Fehlende Features (aus User-Requests)
-- **Key Priority System** (#677) — wer gewinnt bei Überlappung?
-- **Conflict Detection** — Warnung bei kollidierenden Hotkeys
-- **Ignore Repeat** (#1319) — Key gehalten → nur 1× feuern
-- **Modifier Keys in Sequences** (#1261) — `ctrl+a > ctrl+b` nicht supported
+### Missing Features (from User Requests)
+- **Key Priority System** (#677) — who wins on overlap?
+- **Conflict Detection** — warning on conflicting hotkeys
+- **Ignore Repeat** (#1319) — key held → fire only once
+- **Modifier Keys in Sequences** (#1261) — `ctrl+a > ctrl+b` not supported
 - **Key Blacklist for Recording** (#1268)
 
 ## `code` vs `key` Problem
 
-Referenz: [Blog "All JavaScript Keyboard Shortcut Libraries Are Broken"](https://blog.duvallj.pw/posts/2025-01-10-all-javascript-keyboard-shortcut-libraries-are-broken.html)
+Reference: [Blog "All JavaScript Keyboard Shortcut Libraries Are Broken"](https://blog.duvallj.pw/posts/2025-01-10-all-javascript-keyboard-shortcut-libraries-are-broken.html)
 
-react-hotkeys-hook v5 nutzt `code` by default mit `useKey` als Opt-in. Diese hybride Lösung ist problematisch:
-- `code` = physische Taste (Position auf Tastatur)
-- `key` = was der User tatsächlich tippt (Layout-abhängig)
-- Hybride Nutzung → unvorhersehbares Verhalten bei internationalen Layouts
-- Nur `tinykeys` wurde als korrekt implementiert zitiert
+react-hotkeys-hook v5 uses `code` by default with `useKey` as opt-in. This hybrid approach is problematic:
+- `code` = physical key (position on keyboard)
+- `key` = what the user actually types (layout-dependent)
+- Hybrid usage → unpredictable behavior with international layouts
+- Only `tinykeys` was cited as correctly implemented
 
-**Unsere Lösung:**
-- Default: `key` für Character-Shortcuts
-- `code` nur für positionelle Tasten (WASD, Arrows)
-- Auto-Detection basierend auf Hotkey-Definition
-- Klare Dokumentation der Tradeoffs
+**Our Solution:**
+- Default: `key` for character shortcuts
+- `code` only for positional keys (WASD, Arrows)
+- Auto-detection based on hotkey definition
+- Clear documentation of tradeoffs
 
-## Konkurrenz-Landschaft
+## Competitive Landscape
 
-| Package | Stars | Downloads/Woche | Ansatz |
-|---------|-------|-----------------|--------|
-| react-hotkeys-hook | 3,418 | 1.74M | Hook-based, populärste |
+| Package | Stars | Downloads/Week | Approach |
+|---------|-------|----------------|----------|
+| react-hotkeys-hook | 3,418 | 1.74M | Hook-based, most popular |
 | react-hotkeys | ~2,100 | ~280K | Component-based, unmaintained |
 | tinykeys | ~3,500 | ~300K | Framework-agnostic |
 | mousetrap | ~11,600 | ~900K | Vanilla JS, global only |
-| @mantine/hooks | N/A | Teil von Mantine | In UI-Framework integriert |
+| @mantine/hooks | N/A | Part of Mantine | Integrated in UI framework |
 
-## Unsere Strategie: Shortcut-System mit eingebautem Display
+## Our Strategy: Shortcut System with Built-in Display
 
 ### Core Differentiator
-react-hotkeys-hook hat **null UI zum Anzeigen von Shortcuts**. Das `description`-Feld existiert, wird aber nicht gerendert. Unser Killer-Feature ist das Display.
+react-hotkeys-hook has **zero UI for displaying shortcuts**. The `description` field exists but is never rendered. Our killer feature is the display.
 
-### Ziel-Features
+### Target Features
 
-**Display-Komponenten (unique):**
-- `<ShortcutHint>` — zeigt Hotkey neben Button/Action
-- `<ShortcutPalette>` — Command-Palette (cmd+k Pattern)
-- `<ShortcutCheatsheet>` — Vollständige Shortcut-Referenz
-- Platform-aware Rendering (⌘ auf Mac, Ctrl auf Windows)
-- Automatische OS-Detection
+**Display Components (unique):**
+- `<ShortcutHint>` — shows hotkey next to button/action
+- `<ShortcutPalette>` — command palette (cmd+k pattern)
+- `<ShortcutCheatsheet>` — complete shortcut reference
+- Platform-aware rendering (⌘ on Mac, Ctrl on Windows)
+- Automatic OS detection
 
-**Architektur-Vorteile:**
-- 1 zentraler Event-Listener statt N×2
-- Zero side effects beim Import
-- `sideEffects: false` + volles Tree-Shaking
-- Moderne `exports` mit Subpath-Imports
-- ESM + CJS Dual-Format
+**Architecture Advantages:**
+- 1 central event listener instead of N×2
+- Zero side effects on import
+- `sideEffects: false` + full tree shaking
+- Modern `exports` with subpath imports
+- ESM + CJS dual format
 
-**Bugs als Features:**
-| Ihr Bug | Unsere Lösung |
-|---------|---------------|
-| `enableOnFormTags` kaputt | Saubere Form-Tag-Detection mit Test-Matrix |
-| `mod` macOS kaputt | Korrekte Platform-Abstraction |
-| meta+key keyup fehlt | Dokumentiertes Workaround (Timeout-Detection) |
-| Handler-Interferenz | Priority-System mit expliziter Ordnung |
-| Provider Re-Renders | `useRef` + Subscription statt `useState` |
-| Scope-Leak | Strikte Scope-Isolation |
+**Their Bugs as Our Features:**
+| Their Bug | Our Solution |
+|-----------|-------------|
+| `enableOnFormTags` broken | Clean form tag detection with test matrix |
+| `mod` macOS broken | Correct platform abstraction |
+| meta+key keyup missing | Documented workaround (timeout detection) |
+| Handler interference | Priority system with explicit ordering |
+| Provider re-renders | `useRef` + subscription instead of `useState` |
+| Scope leak | Strict scope isolation |
 
 **TypeScript:**
 - Strict, zero `@ts-expect-error`
-- Volle JSDoc/TSDoc auf jedem Export
-- Type-safe Key-Definitionen
-- Discriminated Unions statt `Record<string, unknown>`
+- Full JSDoc/TSDoc on every export
+- Type-safe key definitions
+- Discriminated unions instead of `Record<string, unknown>`
 
-**Bundle-Ziel:**
+**Bundle Target:**
 - ≤2KB core (gzip)
-- Display-Komponenten als separate Entry-Points (code-split)
+- Display components as separate entry points (code-split)
 
-### Target-Metriken
+### Target Metrics
 
-| Dimension | react-hotkeys-hook | Unser Ziel |
+| Dimension | react-hotkeys-hook | Our Target |
 |-----------|-------------------|------------|
 | Shortcut Display UI | Non-existent | Killer Feature |
-| Event-Architektur | N×2 Listener | 1 zentraler Listener |
-| Side Effects | Globale IIFE | Zero |
-| TypeScript | @ts-expect-error, kein JSDoc | Strict + JSDoc |
+| Event Architecture | N×2 Listener | 1 central listener |
+| Side Effects | Global IIFE | Zero |
+| TypeScript | @ts-expect-error, no JSDoc | Strict + JSDoc |
 | Form Tags | Buggy | Rock-solid |
-| Modifier macOS | Kaputt | Platform-tested |
-| Priority System | Keins | Built-in |
+| Modifier macOS | Broken | Platform-tested |
+| Priority System | None | Built-in |
 | Bundle | 2.7KB gz | ≤2KB core |
-| Tree Shaking | Kompromittiert | Voll |
+| Tree Shaking | Compromised | Full |
 | Package Exports | Legacy main/types | Modern conditional |
