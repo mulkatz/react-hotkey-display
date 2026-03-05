@@ -1,6 +1,6 @@
 {
 	"name": "react-hotkey-display",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Keyboard shortcut UI components with automatic OS detection: Kbd, Hotkey, Cheatsheet, and Command Palette. Mac/Windows/Linux aware.",
 	"type": "module",
 	"license": "MIT",
