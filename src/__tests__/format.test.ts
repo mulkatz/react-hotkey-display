@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { formatCombo, formatKey, getAriaLabel, getComboAriaLabel, parseCombo } from "../format.js";
+import {
+	formatCombo,
+	formatKey,
+	getAriaLabel,
+	getComboAriaLabel,
+	normalizeCombo,
+	parseCombo,
+} from "../format.js";
 
 describe("parseCombo", () => {
 	it('parses "Mod+K" into ["Mod", "K"]', () => {
@@ -212,5 +219,58 @@ describe("getComboAriaLabel", () => {
 
 	it("handles windows labels", () => {
 		expect(getComboAriaLabel(["Ctrl", "K"])).toBe("Ctrl plus K");
+	});
+});
+
+describe("normalizeCombo", () => {
+	it("normalizes $mod to Mod", () => {
+		expect(normalizeCombo("$mod+KeyK")).toBe("Mod+K");
+	});
+
+	it("normalizes KeyX to X", () => {
+		expect(normalizeCombo("KeyA")).toBe("A");
+		expect(normalizeCombo("KeyZ")).toBe("Z");
+	});
+
+	it("normalizes Digit to number", () => {
+		expect(normalizeCombo("$mod+Digit1")).toBe("Mod+1");
+		expect(normalizeCombo("Digit9")).toBe("9");
+	});
+
+	it("normalizes ArrowUp to Up", () => {
+		expect(normalizeCombo("ArrowUp")).toBe("Up");
+		expect(normalizeCombo("ArrowDown")).toBe("Down");
+		expect(normalizeCombo("ArrowLeft")).toBe("Left");
+		expect(normalizeCombo("ArrowRight")).toBe("Right");
+	});
+
+	it("normalizes Meta to Mod", () => {
+		expect(normalizeCombo("Meta+KeyK")).toBe("Mod+K");
+	});
+
+	it("passes through already-normalized combos", () => {
+		expect(normalizeCombo("Mod+Shift+K")).toBe("Mod+Shift+K");
+	});
+
+	it("handles sequence combos (space-separated)", () => {
+		expect(normalizeCombo("KeyG KeyG")).toBe("G G");
+	});
+
+	it("trims whitespace", () => {
+		expect(normalizeCombo("  $mod+KeyK  ")).toBe("Mod+K");
+	});
+
+	it("returns empty string for empty input", () => {
+		expect(normalizeCombo("")).toBe("");
+		expect(normalizeCombo("   ")).toBe("");
+	});
+
+	it("handles mixed case key names", () => {
+		expect(normalizeCombo("$MOD+KEYK")).toBe("Mod+K");
+		expect(normalizeCombo("arrowUP")).toBe("Up");
+	});
+
+	it("handles sequence combos with modifiers", () => {
+		expect(normalizeCombo("$mod+KeyG $mod+KeyG")).toBe("Mod+G Mod+G");
 	});
 });

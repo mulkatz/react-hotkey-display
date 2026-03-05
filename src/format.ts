@@ -177,3 +177,59 @@ export function getAriaLabel(formattedKey: string): string {
 export function getComboAriaLabel(formattedKeys: string[]): string {
 	return formattedKeys.map(getAriaLabel).join(" plus ");
 }
+
+/**
+ * Normalize key names from various hotkey library formats to our canonical format.
+ *
+ * Handles:
+ * - tinykeys: "$mod" → "Mod", "KeyK" → "K", "Digit1" → "1", "ArrowUp" → "Up"
+ * - react-hotkeys-hook: already uses our format mostly
+ * - TanStack: "$mod" → "Mod"
+ */
+const NORMALIZE_MAP: Record<string, string> = {
+	$mod: "Mod",
+	meta: "Mod",
+	arrowup: "Up",
+	arrowdown: "Down",
+	arrowleft: "Left",
+	arrowright: "Right",
+};
+
+function normalizeKey(key: string): string {
+	const lower = key.toLowerCase();
+
+	// Check direct mapping first
+	const mapped = NORMALIZE_MAP[lower];
+	if (mapped) return mapped;
+
+	// tinykeys "KeyK" → "K"
+	if (/^key[a-z]$/i.test(key)) {
+		return key.slice(3).toUpperCase();
+	}
+
+	// tinykeys "Digit1" → "1"
+	if (/^digit[0-9]$/i.test(key)) {
+		return key.slice(5);
+	}
+
+	return key;
+}
+
+/**
+ * Normalize a combo string from any supported format to our canonical format.
+ *
+ * @example
+ * normalizeCombo("$mod+KeyK")      // → "Mod+K"
+ * normalizeCombo("$mod+Digit1")    // → "Mod+1"
+ * normalizeCombo("Meta+ArrowUp")   // → "Mod+Up"
+ */
+export function normalizeCombo(combo: string): string {
+	return combo
+		.trim()
+		.split(/\s+/)
+		.map((step) => {
+			const keys = parseCombo(step);
+			return keys.map(normalizeKey).join("+");
+		})
+		.join(" ");
+}
