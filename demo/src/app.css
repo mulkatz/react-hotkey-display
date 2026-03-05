@@ -84,3 +84,34 @@
 .hkd-palette-item-cat {
 	--hkd-pl-muted: #a3a3a3;
 }
+
+/* Theme overrides for Theming demo section */
+.theme-github .hkd-kbd {
+	--hkd-color: #1f2328;
+	--hkd-bg: #f6f8fa;
+	--hkd-border: #d1d9e0;
+	--hkd-radius: 6px;
+	--hkd-font: "Segoe UI", sans-serif;
+	--hkd-shadow-outer: #d1d9e0;
+	--hkd-shadow-inner: #ffffff;
+}
+
+.theme-discord .hkd-kbd {
+	--hkd-color: #dbdee1;
+	--hkd-bg: #2b2d31;
+	--hkd-border: #3f4248;
+	--hkd-radius: 4px;
+	--hkd-font: "gg sans", sans-serif;
+	--hkd-shadow-outer: #1e1f22;
+	--hkd-shadow-inner: #35373c;
+}
+
+.theme-vercel .hkd-kbd {
+	--hkd-color: #ededed;
+	--hkd-bg: transparent;
+	--hkd-border: #333;
+	--hkd-radius: 5px;
+	--hkd-font: "Geist", sans-serif;
+	--hkd-shadow-outer: transparent;
+	--hkd-shadow-inner: transparent;
+}

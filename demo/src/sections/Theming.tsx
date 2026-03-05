@@ -7,36 +7,9 @@ interface ThemingProps {
 }
 
 const themes = [
-	{
-		name: "GitHub",
-		vars: {
-			"--hkd-color": "#1f2328",
-			"--hkd-bg": "#f6f8fa",
-			"--hkd-border": "#d1d9e0",
-			"--hkd-radius": "6px",
-			"--hkd-font": "'Segoe UI', sans-serif",
-		},
-	},
-	{
-		name: "Discord",
-		vars: {
-			"--hkd-color": "#dbdee1",
-			"--hkd-bg": "#2b2d31",
-			"--hkd-border": "#3f4248",
-			"--hkd-radius": "4px",
-			"--hkd-font": "'gg sans', sans-serif",
-		},
-	},
-	{
-		name: "Vercel",
-		vars: {
-			"--hkd-color": "#ededed",
-			"--hkd-bg": "transparent",
-			"--hkd-border": "#333",
-			"--hkd-radius": "5px",
-			"--hkd-font": "'Geist', sans-serif",
-		},
-	},
+	{ name: "GitHub", className: "theme-github" },
+	{ name: "Discord", className: "theme-discord" },
+	{ name: "Vercel", className: "theme-vercel" },
 ];
 
 export function Theming({ platform }: ThemingProps) {
@@ -53,10 +26,7 @@ export function Theming({ platform }: ThemingProps) {
 					{themes.map((theme) => (
 						<div key={theme.name}>
 							<p className="text-xs text-zinc-500 mb-3">{theme.name}</p>
-							<div
-								className="flex flex-wrap items-center gap-3"
-								style={theme.vars as React.CSSProperties}
-							>
+							<div className={`flex flex-wrap items-center gap-3 ${theme.className}`}>
 								<Hotkey combo="Mod+K" platform={platform} />
 								<Kbd>{platform === "mac" ? "⌘" : "Ctrl"}</Kbd>
 								<Kbd>Shift</Kbd>
