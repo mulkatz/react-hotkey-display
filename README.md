@@ -11,7 +11,6 @@
 
 <p align="center">
   <a href="https://npmjs.com/package/react-hotkey-display"><img src="https://img.shields.io/npm/v/react-hotkey-display" /></a>
-  <a href="https://bundlephobia.com/package/react-hotkey-display"><img src="https://img.shields.io/bundlephobia/minzip/react-hotkey-display" /></a>
   <img src="https://img.shields.io/npm/l/react-hotkey-display" />
 </p>
 
