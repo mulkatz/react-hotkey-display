@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./icon.png" width="120" alt="react-hotkey-display icon" />
+  <img src="https://raw.githubusercontent.com/mulkatz/react-hotkey-display/main/icon.png" width="120" alt="react-hotkey-display icon" />
 </p>
 
 <h1 align="center">react-hotkey-display</h1>
@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://npmjs.com/package/react-hotkey-display"><img src="https://img.shields.io/npm/v/react-hotkey-display" /></a>
-  <img src="https://img.shields.io/npm/l/react-hotkey-display" />
+  <a href="https://github.com/mulkatz/react-hotkey-display/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license" /></a>
 </p>
 
 <p align="center">
